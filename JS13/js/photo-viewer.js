@@ -3,7 +3,9 @@ var $current;
 var cache = {};
 var $frame = $('#photo-viewer');
 var $thumbs = $('.thumb');
+
 function crossfade($img){
+
     if($current){
         $current.stop().fadeOut('slow');
     }
@@ -16,6 +18,7 @@ function crossfade($img){
 
     $current = $img;
 }
+
 $(document).on('click','.thumb',function(e){
     var $img,
         src = this.href;
@@ -35,18 +38,20 @@ $(document).on('click','.thumb',function(e){
             $img: $img,
             isLoading: true
         };
+
         $img.on('load',function(){
             $img.hide();
             $frame.romoveClass('is-loading').append($img);
             cache[src].isLoading = false;
-            if(request===src){
+            if(request === src){
                 crossfade($img);
             }
         });
         $frame.addClass('is-loading');
+
         $img.attr({
-            'src':src,
-            'alt':this.title ||''
+            'src': src,
+            'alt': this.title ||''
         });
     }
 });
